@@ -43,13 +43,16 @@ def database_maker(map_file):
                     Sequence = dict[lead_prot_id]
                 else:
                     missing.append(lead_prot_id)
-            My_data.append([lead_prot_id, Compartment, Confidence, Sequence])
+            # if no prediction, we don't include them in the dataset
+            if Compartment != "" and Compartment != "No Prediction":
+                My_data.append([lead_prot_id, Compartment, Confidence, Sequence])
+
         print(missing)
         print(len(missing))
     return(My_data)
 
 rows = database_maker('data/elife-16950-supp1-v3.csv')
 
-with open('data/Dataset2.csv', 'w') as dataset:
+with open('data/Dataset_onlyPredict.csv', 'w') as dataset:
     writer = csv.writer(dataset, delimiter='\t')
     writer.writerows(rows)
