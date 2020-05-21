@@ -1,7 +1,6 @@
 import gzip
 import csv
 
-
 def read_fasta(filename):
     fasta_dict = {}
     with gzip.open(filename, 'rt') as file:
